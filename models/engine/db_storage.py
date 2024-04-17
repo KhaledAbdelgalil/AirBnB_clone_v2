@@ -47,7 +47,8 @@ class DBStorage:
             classes = [State, City, User, Place, Review, Amenity]
             objs = []
             for cls in classes:
-                objs.append(*self.__session.query(cls).all())
+                for ele in self.__session.query(cls).all():
+                    objs.append(ele)
         else:
             objs = self.__session.query(cls).all()
         return {"{}.{}".format(type(o).__name__, o.id): o for o in objs}
