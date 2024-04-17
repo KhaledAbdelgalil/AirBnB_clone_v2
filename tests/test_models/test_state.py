@@ -17,7 +17,7 @@ class TestState(unittest.TestCase):
         cls.state.name = "CA"
 
     @classmethod
-    def teardown(cls):
+    def tearDownClass(cls):
         """at the end of the test this will tear it down"""
         del cls.state
 

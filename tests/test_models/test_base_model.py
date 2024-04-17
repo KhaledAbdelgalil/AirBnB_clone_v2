@@ -14,11 +14,11 @@ class TestBaseModel(unittest.TestCase):
     def setUpClass(cls):
         """setup for the test"""
         cls.base = BaseModel()
-        cls.base.name = "Kev"
+        cls.base.name = "Khaled"
         cls.base.num = 20
 
     @classmethod
-    def teardown(cls):
+    def tearDownClass(cls):
         """at the end of the test this will tear it down"""
         del cls.base
 

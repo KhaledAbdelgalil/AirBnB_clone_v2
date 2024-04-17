@@ -21,13 +21,13 @@ class TestFileStorage(unittest.TestCase):
     def setUpClass(cls):
         """set up for test"""
         cls.user = User()
-        cls.user.first_name = "Kev"
-        cls.user.last_name = "Yo"
-        cls.user.email = "1234@yahoo.com"
+        cls.user.first_name = "khaled"
+        cls.user.last_name = "Mansour"
+        cls.user.email = "Khaled@yahoo.com"
         cls.storage = FileStorage()
 
     @classmethod
-    def teardown(cls):
+    def tearDownClass(cls):
         """at the end of the test this will tear it down"""
         del cls.user
 
@@ -58,7 +58,7 @@ class TestFileStorage(unittest.TestCase):
         obj = storage.all()
         user = User()
         user.id = 123455
-        user.name = "Kevin"
+        user.name = "Khaled"
         storage.new(user)
         key = user.__class__.__name__ + "." + str(user.id)
         self.assertIsNotNone(obj[key])

@@ -14,10 +14,10 @@ class TestAmenity(unittest.TestCase):
     def setUpClass(cls):
         """set up for test"""
         cls.amenity = Amenity()
-        cls.amenity.name = "Breakfast"
+        cls.amenity.name = "Lunch"
 
     @classmethod
-    def teardown(cls):
+    def tearDownClass(cls):
         """at the end of the test this will tear it down"""
         del cls.amenity
 

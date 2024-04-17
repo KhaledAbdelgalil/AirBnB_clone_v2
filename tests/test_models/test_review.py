@@ -20,7 +20,7 @@ class TestReview(unittest.TestCase):
         cls.rev.text = "The srongest in the Galaxy"
 
     @classmethod
-    def teardown(cls):
+    def tearDownClass(cls):
         """at the end of the test this will tear it down"""
         del cls.rev
 
