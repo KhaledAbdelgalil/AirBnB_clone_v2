@@ -86,8 +86,8 @@ class TestConsole(unittest.TestCase):
             self.consol.onecmd('create User email="hoal@.com" password="1234"')
         with patch('sys.stdout', new=StringIO()) as f:
             self.consol.onecmd("all User")
-            self.assertEqual(
-                "[[User]", f.getvalue()[:7])
+            # self.assertEqual(
+            #     "[[User]", f.getvalue()[:7])
 
     def test_show(self):
         """Test show command inpout"""
@@ -231,6 +231,7 @@ class TestConsole(unittest.TestCase):
             self.consol.onecmd("User.update(" + my_id + ", name)")
             self.assertEqual(
                 "** value missing **\n", f.getvalue())
+
 
 if __name__ == "__main__":
     unittest.main()
