@@ -1,41 +1,30 @@
 #!/usr/bin/python3
-import os.path
-from datetime import datetime
-from fabric.api import env
-from fabric.api import local
-from fabric.api import put
-from fabric.api import run
+""" Fabric script that generates a .tgz archive """
 
-env.hosts = ['100.25.19.204', '54.157.159.85']
+
+from fabric.api import *
+from os import path
+from datetime import datetime
+env.hosts = ['54.237.48.43', '35.175.132.199']
 
 
 def do_pack():
     """Create a tar gzipped archive of the directory web_static."""
-    dt = datetime.utcnow()
-    file = "versions/web_static_{}{}{}{}{}{}.tgz".format(dt.year,
-                                                         dt.month,
-                                                         dt.day,
-                                                         dt.hour,
-                                                         dt.minute,
-                                                         dt.second)
-    if os.path.isdir("versions") is False:
-        if local("mkdir -p versions").failed is True:
-            return None
-    if local("tar -cvzf {} web_static".format(file)).failed is True:
+    today_date = datetime.today()
+    date = f"{today_date.year}{today_date.month:02}{today_date.day:02}"
+    time = f"{today_date.hour:02}{today_date.minute:02}{today_date.second:02}"
+    archive_name = f"versions/web_static_{date}{time}.tgz"
+    local("mkdir -p versions")
+    try:
+        local(f"tar -cvzf {archive_name} web_static")
+        return archive_name
+    except Exception:
         return None
-    return file
 
 
 def do_deploy(archive_path):
-    """Distributes an archive to a web server.
-
-    Args:
-        archive_path (str): The path of the archive to distribute.
-    Returns:
-        If the file doesn't exist at archive_path or an error occurs - False.
-        Otherwise - True.
-    """
-    if os.path.isfile(archive_path) is False:
+    """ A function that distributes an archive to your web servers """
+    if path.isfile(archive_path) is False:
         return False
     file = archive_path.split("/")[-1]
     name = file.split(".")[0]
