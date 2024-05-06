@@ -46,9 +46,34 @@ def do_deploy(archive_path):
         return False
 
 
+def do_deploy_local(archive_path):
+    """ A function that distributes an archive to your local machine """
+    try:
+        if exists(archive_path):
+            file_name = archive_path.split("/")[-1]
+            file_ext = file_name.split(".")[0]
+            file_no_ext = "web_static"
+            path = "/data/web_static/releases/"
+            put(archive_path, '/tmp/')
+            local('mkdir -p {}{}/'.format(path, file_ext))
+            local('tar -xzf /tmp/{} -C {}{}/'.format(file_name,
+                                                     path, file_ext))
+            local('rm /tmp/{}'.format(file_name))
+            local('mv {0}{1}/{2}/* {0}{1}/'.format(path, file_ext,
+                                                   file_no_ext))
+            local('rm -rf /data/web_static/current')
+            local('ln -s {}{}/ /data/web_static/current'.format(path,
+                                                                file_ext))
+            return True
+        else:
+            return False
+    except Exception:
+        return False
+
+
 def deploy():
     """Create and distribute an archive to a web server."""
     file = do_pack()
     if file is None:
         return False
-    return do_deploy(file)
+    return do_deploy_local(file)
