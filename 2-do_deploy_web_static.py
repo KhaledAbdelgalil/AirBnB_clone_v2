@@ -12,19 +12,19 @@ def do_deploy_local(archive_path):
     try:
         if exists(archive_path):
             file_name = archive_path.split("/")[-1]
-            file_ext = file_name.split(".")[0]
-            file_no_ext = "web_static"
+            file_no_ext = file_name.split(".")[0]
             path = "/data/web_static/releases/"
-            put(archive_path, '/tmp/')
-            local('mkdir -p {}{}/'.format(path, file_ext))
-            local('tar -xzf /tmp/{} -C {}{}/'.format(file_name,
-                                                     path, file_ext))
+            local("cp {} /tmp/".format(archive_path))
+            local('mkdir -p {}{}/'.format(path, file_no_ext))
+            local('tar -xzf /tmp/{} -C {}{}/'.format(
+                file_name, path, file_no_ext))
             local('rm /tmp/{}'.format(file_name))
-            local('mv {0}{1}/{2}/* {0}{1}/'.format(path, file_ext,
-                                                   file_no_ext))
+            local('mv {0}{1}/web_static/* {0}{1}/'.format(
+                path, file_no_ext))
+            local('rm -rf {}{}/web_static'.format(path, file_no_ext))
             local('rm -rf /data/web_static/current')
-            local('ln -s {}{}/ /data/web_static/current'.format(path,
-                                                                file_ext))
+            local('ln -fs {}{}/ /data/web_static/current'.format(
+                path, file_no_ext))
             return True
         else:
             return False
