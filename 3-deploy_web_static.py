@@ -4,8 +4,8 @@
 
 from fabric.api import *
 from os import path
-from os.path import exists
-from datetime import datetime
+from os.path import exists, isdir
+import time
 env.hosts = ['54.237.48.43', '35.175.132.199']
 
 
