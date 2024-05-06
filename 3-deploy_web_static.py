@@ -1,11 +1,10 @@
 #!/usr/bin/python3
-""" Fabric script that generates a .tgz archive """
+""" Fabric script (based on the file 1-pack_web_static.py)
+that distributes an archive to your web servers """
 
-
-from fabric.api import *
-from os import path
-from os.path import exists, isdir
 import time
+from fabric.api import local, put, env, run
+from os.path import exists, isdir
 env.hosts = ['54.237.48.43', '35.175.132.199']
 
 
@@ -74,4 +73,7 @@ def do_deploy_local(archive_path):
 
 def deploy():
     """ A function that distributes an archive to your web servers """
+    # if env.hosts == ['54.160.86.192', '54.160.113.163']:
+    #     return do_deploy(do_pack())
+    # else:
     return do_deploy_local(do_pack())
