@@ -50,7 +50,10 @@ class DBStorage:
                 for ele in self.__session.query(cls).all():
                     objs.append(ele)
         else:
-            objs = self.__session.query(cls).all()
+            if isinstance(cls, str):
+                objs = self.__session.query(eval(cls)).all()
+            else:
+                objs = self.__session.query(cls).all()
         return {"{}.{}".format(type(o).__name__, o.id): o for o in objs}
 
     def new(self, obj):
