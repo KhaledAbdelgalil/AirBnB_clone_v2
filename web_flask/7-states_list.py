@@ -4,6 +4,7 @@ Starts a Flask web application.
 The application listens on 0.0.0.0, port 5000.
 """
 from models import storage
+from models import *
 from flask import Flask
 from flask import render_template
 
@@ -28,4 +29,4 @@ def teardown(exc):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", port=5000)
