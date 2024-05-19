@@ -4,6 +4,7 @@
 The application listens on 0.0.0.0, port 5000.
 """
 from models import storage
+from models.state import State
 from models import *
 from flask import Flask, abort
 from flask import render_template
@@ -17,18 +18,18 @@ def states():
 
     States are sorted by name.
     """
-    states = storage.all("State")
+    states = storage.all(State)
     return render_template("7-states_list.html", states=states)
 
 
 @app.route("/states/<id>", strict_slashes=False)
 def states_id(id):
     """Displays an HTML page with info about <id>, if it exists."""
-    states = storage.all("State").values()
+    states = storage.all(State).values()
     for state in states:
         if state.id == id:
             return render_template("9-states.html", state=state)
-    abort(404)
+    return render_template("9-states.html", state=None)
 
 
 @app.teardown_appcontext
