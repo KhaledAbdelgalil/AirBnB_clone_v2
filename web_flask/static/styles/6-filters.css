@@ -43,6 +43,8 @@
 	max-height: 300px;
 	overflow-y: scroll;
 	background-color: #FAFAFA;
+	position: relative;
+    z-index: 100;
 
 }
 
