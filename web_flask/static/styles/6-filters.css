@@ -31,7 +31,6 @@
 .popover {
 	list-style-type: none;
 	display: none;
-	background-color: #FAFAFA;
 	width: 100%;
 
 	margin-left: -1px;
@@ -43,6 +42,8 @@
 
 	max-height: 300px;
 	overflow-y: scroll;
+	background-color: #FAFAFA;
+
 }
 
 .locations:hover .popover {
